@@ -1,5 +1,39 @@
-// Create a Quizz Class  //
-class Quiz {
+// Info Box
+
+let info_box = document.getElementById("info-box");
+
+// Quiz Box
+
+let quiz_box = document.getElementById("quiz-box");
+
+// Start Button
+let start_btn = document.getElementById("start-btn");
+    start_btn.onclick = () => {
+        info_box.classList.add("info-box-show");
+    start_btn.classList.add("hide");
+    }
+
+// Info Buttons 
+
+let exit_quiz = document.getElementById("exit-quiz");
+    exit_quiz.onclick = () => {
+        info_box.classList.remove("info-box-show");
+        start_btn.classList.remove("hide");
+        
+    }
+
+let continue_quiz = document.getElementById("continue-quiz");
+    continue_quiz.onclick = () => {
+        info_box.classList.remove("info-box-show");
+        quiz_box.classList.add("info-box-show");
+        startCountdown();
+        
+    }
+
+
+// Create a Quiz Class  //
+
+    class Quiz {
     constructor(questions) {
         this.score = 0;
         this.questions = questions;
@@ -18,7 +52,7 @@ class Quiz {
     }
 
     isEnded() {
-        return this.questionIndex === this.questions.lenght;
+        return this.questionIndex === this.questions.length;
     }
 
 };
@@ -73,7 +107,7 @@ class Quiz {
     function showProgress() {
         let currentQuestionNumber = quiz.questionIndex + 1;
         let progressElement = document.getElementById("progress");
-            progressElement.innerHTML = `Question ${currentQuestionNumber} of ${quiz.questions.lenght}`;
+            progressElement.innerHTML = `Question ${currentQuestionNumber} of ${quiz.questions.length}`;
 
 };
 
@@ -83,7 +117,7 @@ class Quiz {
         let quizEndHTML = 
             `
             <h1>Quiz Completed</h1>
-            <h2 id="score">You Scored: ${quiz.score} of ${quiz.questions.lenght}</h2>
+            <h2 id="score">You Scored: ${quiz.score} of ${quiz.questions.length}</h2>
                 <div class="quiz-repeat">
                     <a href="index.html">Take Quiz Again</a>
                 </div>
@@ -122,11 +156,17 @@ class Quiz {
 
     // Add a countdown //
 
-    let time = 1;
-    let quizTimeInMinutes = time * 60 * 60;
-    let quizTime = quizTimeInMinutes / 60;
-
     let counting = document.getElementById("count-down");
+
+    //let time = counting.innerHTML;
+    let time = 15;
+    counting.innerHTML = `TIMER: ${time}s`;
+    //let quizTimeInMinutes = time * 60 * 60;
+    let quizTimeInMinutes = time * 60;
+
+    //let quizTime = quizTimeInMinutes / 60;
+    let quizTime = quizTimeInMinutes / 60;
+    
 
     function startCountdown() {
         let quizTimer = setInterval(function() {
@@ -137,9 +177,11 @@ class Quiz {
                 quizTime--;
                 let sec = Math.floor(quizTime % 60);
                 let min = Math.floor(quizTime / 60) % 60;
-                counting.innerHTML = `TIME: ${min} : ${sec}`;
+                
+                //counting.innerHTML = `TIME: ${min} : ${sec}`;
+                counting.innerHTML = `TIMER: ${sec}s`;
             }
         }, 1000);    
     }
 
-    startCountdown();
+    
